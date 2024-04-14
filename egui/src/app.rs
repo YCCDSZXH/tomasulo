@@ -59,7 +59,7 @@ impl TemplateApp {
         Window::new("Instructions")
             .open(&mut true)
             .vscroll(false)
-            .resizable(false)
+            .resizable(true)
             .title_bar(false)
             .default_size([300.0, 350.0])
             .show(ctx, |ui| {
@@ -190,12 +190,12 @@ impl eframe::App for TemplateApp {
             ui.horizontal(|ui| {
                 if ui.button("prev").clicked() && self.value > 0 {
                     self.value -= 1;
-                    self.run();
+                    let _ = self.run();
                 }
                 ui.label(self.value.to_string());
                 if ui.button("next").clicked() {
                     self.value += 1;
-                    self.run();
+                    let _ = self.run();
                 }
             });
 
@@ -218,6 +218,11 @@ impl eframe::App for TemplateApp {
 }
 
 fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
+    ui.hyperlink_to("source code", "https://github.com/YCCDSZXH/tomasulo");
+    ui.horizontal(|ui| {
+        ui.label("Author");
+        ui.hyperlink_to("YCCD", "https://github.com/YCCDSZXH");
+    });
     ui.horizontal(|ui| {
         ui.spacing_mut().item_spacing.x = 0.0;
         ui.label("Powered by ");
@@ -231,14 +236,14 @@ fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
     });
 }
 
-fn new_windows(ctx: &Context) {
-    Window::new("demo")
-        .open(&mut true)
-        .vscroll(false)
-        .resizable(false)
-        .default_size([300.0, 350.0])
-        .show(ctx, |ui| ui.label("Powered by "));
-}
+// fn new_windows(ctx: &Context) {
+//     Window::new("demo")
+//         .open(&mut true)
+//         .vscroll(false)
+//         .resizable(false)
+//         .default_size([300.0, 350.0])
+//         .show(ctx, |ui| ui.label("Powered by "));
+// }
 
 fn rs(ctx: &Context) {
     Window::new("Reservation station")
@@ -403,14 +408,14 @@ fn display(body: &mut TableBody<'_>, rows: &[Slot], label: String) {
             });
             row.col(|ui| {
                 if let Some(qj) = v.qj {
-                    // ui.label(qj.to_string());
+                    ui.label(format!("{}{}", qj.0, qj.1));
                 } else {
                     ui.label("");
                 }
             });
             row.col(|ui| {
                 if let Some(qk) = v.qk {
-                    // ui.label(qk.to_string());
+                    ui.label(format!("{}{}", qk.0, qk.1));
                 } else {
                     ui.label("");
                 }

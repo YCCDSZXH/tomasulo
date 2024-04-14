@@ -262,6 +262,7 @@ impl Rs {
         Ok(())
     }
     pub fn update(&mut self) {
+        let mut bus = false;
         let slot = self
             .add
             .iter_mut()
@@ -283,7 +284,8 @@ impl Rs {
             }
         }
         let mut rg = REG_GROUP.write().unwrap();
-        if op_done.0.is_some() {
+        if op_done.0.is_some() && !bus {
+            bus = true;
             rg.refresh_reg_state(op_done.0, op_done.1);
             self.refresh(op_done.0, op_done.1);
         }
@@ -300,10 +302,13 @@ impl Rs {
             } else {
                 let value = slot.vj.unwrap() * slot.vk.unwrap();
                 op_done = (Some((RsType::Mul, index as u8)), value);
-                slot.reset();
+                if !bus {
+                    slot.reset();
+                }
             }
         }
-        if op_done.0.is_some() {
+        if op_done.0.is_some() && !bus {
+            bus = true;
             rg.refresh_reg_state(op_done.0, op_done.1);
             self.refresh(op_done.0, op_done.1);
         }
@@ -321,10 +326,12 @@ impl Rs {
                 // TODO: add mem
                 let value = 1;
                 op_done = (Some((RsType::Load, index as u8)), value);
-                slot.reset();
+                if !bus {
+                    slot.reset();
+                }
             }
         }
-        if op_done.0.is_some() {
+        if op_done.0.is_some() && !bus {
             rg.refresh_reg_state(op_done.0, op_done.1);
             self.refresh(op_done.0, op_done.1);
         }
@@ -342,6 +349,16 @@ impl Rs {
             }
         });
         self.mul.iter_mut().for_each(|v| {
+            if v.qj == state {
+                v.qj = None;
+                v.vj = Some(value);
+            }
+            if v.qk == state {
+                v.qk = None;
+                v.vk = Some(value);
+            }
+        });
+        self.load.iter_mut().for_each(|v| {
             if v.qj == state {
                 v.qj = None;
                 v.vj = Some(value);
