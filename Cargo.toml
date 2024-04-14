@@ -1,0 +1,13 @@
+[workspace]
+
+resolver = "2"
+members = [
+    "core",
+    "egui",
+]
+
+[profile.release]
+# opt-level = 3 # fast and small wasm
+panic = 'abort'
+opt-level = 'z'
+lto = true
