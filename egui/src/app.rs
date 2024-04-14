@@ -59,7 +59,7 @@ impl TemplateApp {
         Window::new("Instructions")
             .open(&mut true)
             .vscroll(false)
-            .resizable(false)
+            .resizable(true)
             .title_bar(false)
             .default_size([300.0, 350.0])
             .show(ctx, |ui| {
