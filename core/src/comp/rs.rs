@@ -335,6 +335,18 @@ impl Rs {
             rg.refresh_reg_state(op_done.0, op_done.1);
             self.refresh(op_done.0, op_done.1);
         }
+        let slot = self
+            .store
+            .iter_mut()
+            .enumerate()
+            .find(|(_, v)| v.busy && v.vj.is_some() && v.addr.is_some());
+        if let Some((_, slot)) = slot {
+            if slot.time > 0 {
+                slot.time -= 1;
+            } else {
+                slot.reset();
+            }
+        }
     }
 
     fn refresh(&mut self, state: RegState, value: i32) {
