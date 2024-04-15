@@ -368,6 +368,16 @@ impl Rs {
                 v.vk = Some(value);
             }
         });
+        self.store.iter_mut().for_each(|v| {
+            if v.qj == state {
+                v.qj = None;
+                v.vj = Some(value);
+            }
+            if v.qk == state {
+                v.qk = None;
+                v.vk = Some(value);
+            }
+        });
     }
 }
 
