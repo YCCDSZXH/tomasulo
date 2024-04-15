@@ -218,6 +218,11 @@ impl eframe::App for TemplateApp {
 }
 
 fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
+    ui.hyperlink_to("source code", "https://github.com/YCCDSZXH/tomasulo");
+    ui.horizontal(|ui| {
+        ui.label("Author");
+        ui.hyperlink_to("YCCD", "https://github.com/YCCDSZXH");
+    });
     ui.horizontal(|ui| {
         ui.spacing_mut().item_spacing.x = 0.0;
         ui.label("Powered by ");
