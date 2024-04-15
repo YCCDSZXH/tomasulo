@@ -61,7 +61,7 @@ impl TemplateApp {
             .vscroll(false)
             .resizable(true)
             .title_bar(false)
-            .default_size([300.0, 350.0])
+            // .default_size([300.0, 350.0])
             .show(ctx, |ui| {
                 ui.label("Instructions");
                 egui::TextEdit::multiline(&mut self.instructions)
@@ -250,8 +250,8 @@ fn rs(ctx: &Context) {
         .open(&mut true)
         .title_bar(false)
         .vscroll(false)
-        .resizable(false)
-        .default_size([300.0, 350.0])
+        .resizable(true)
+        // .default_size([300.0, 350.0])
         .show(ctx, |ui| {
             ui.label("Reservation station");
 
@@ -316,8 +316,8 @@ fn regs(ctx: &Context) {
         .open(&mut true)
         .title_bar(false)
         .vscroll(false)
-        .resizable(false)
-        .default_size([700.0, 750.0])
+        .resizable(true)
+        // .default_size([700.0, 750.0])
         .show(ctx, |ui| {
             ui.label("Reg Group");
 
