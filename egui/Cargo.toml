@@ -29,26 +29,26 @@ env_logger = "0.10"
 wasm-bindgen-futures = "0.4"
 
 
-[profile.release]
-# opt-level = 3 # fast and small wasm
-panic = 'abort'
-opt-level = 'z'
-lto = true
+# [profile.release]
+# # opt-level = 3 # fast and small wasm
+# panic = 'abort'
+# opt-level = 'z'
+# lto = true
 
-# Optimize all dependencies even in debug builds:
-[profile.dev.package."*"]
-opt-level = 2
+# # Optimize all dependencies even in debug builds:
+# [profile.dev.package."*"]
+# opt-level = 2
 
 
-[patch.crates-io]
+# [patch.crates-io]
 
-[unstable]
-build-std = ["std", "panic_abort", "core", "alloc"]
-build-std-features = ["panic_immediate_abort"]
-# If you want to use the bleeding edge version of egui and eframe:
-# egui = { git = "https://github.com/emilk/egui", branch = "master" }
-# eframe = { git = "https://github.com/emilk/egui", branch = "master" }
+# [unstable]
+# build-std = ["std", "panic_abort", "core", "alloc"]
+# build-std-features = ["panic_immediate_abort"]
+# # If you want to use the bleeding edge version of egui and eframe:
+# # egui = { git = "https://github.com/emilk/egui", branch = "master" }
+# # eframe = { git = "https://github.com/emilk/egui", branch = "master" }
 
-# If you fork https://github.com/emilk/egui you can test with:
-# egui = { path = "../egui/crates/egui" }
-# eframe = { path = "../egui/crates/eframe" }
+# # If you fork https://github.com/emilk/egui you can test with:
+# # egui = { path = "../egui/crates/egui" }
+# # eframe = { path = "../egui/crates/eframe" }

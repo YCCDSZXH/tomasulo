@@ -1,5 +1,8 @@
 [build]
 no_sri = true
+filehash = false
+offline = true
+dist = "../dist"
 
 [serve]
 # The address to serve on.
